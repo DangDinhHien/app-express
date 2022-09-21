@@ -1,0 +1,36 @@
+<div class="mt-4">
+    <h3>Khoa hoc cua toi</h3>
+    <table class="table mt-4">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Time</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each courses}}
+            <tr>
+                <th scope="row">{{@index}}</th>
+                <td>{{this.name}}</td>
+                <td>{{this.description}}</td>
+                <td>{{this.createdAt}}</td>
+                <td>
+                    <a href="/courses/{{this._id}}/edit" class="btn btn-link">Edit</a>
+                    <a onclick="deleteCourse('{{this._id}}')" class="btn btn-link">Delete</a>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+<form class="d-none" name="delete-course-form" method="POST"></form>
+<script>
+    function deleteCourse(id) {
+        const deleteForm = document.forms['delete-course-form'];
+        deleteForm.action = '/courses/' + id + '?_method=DELETE';
+        deleteForm.submit();
+    }
+</script>
